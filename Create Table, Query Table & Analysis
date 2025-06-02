@@ -1,0 +1,82 @@
+create table Trips(
+       timestamp TIMESTAMP,
+	   gender VARCHAR (10),
+	   destination VARCHAR (50),
+	   time_of_travel INTEGER,
+	   type_of_activity VARCHAR (20),
+	   holiday_with VARCHAR (20),
+	   transportation VARCHAR (50)
+);
+
+select *
+from Trips;
+
+--how many customers responded to the survey?
+select count (*)
+from Trips;
+
+--2. how many males & females responded?
+
+select gender, count (*)
+from Trips
+group by gender;
+
+--3, most preferred destination
+
+select destination, count (*)
+from Trips
+group by destination;
+
+select destination, count (*) as preference_dest
+from Trips
+group by destination
+order by preference_dest desc
+limit 1;
+
+--4, least preferred destination?
+select destination, count (*) as least_preferred
+from Trips
+group by destination
+order by least_preferred asc
+limit 1;
+
+--5, most preferred activity type
+select type_of_activity, count (*) as most_preferred_activity
+from Trips
+group by type_of_activity
+order by most_preferred_activity desc
+limit 1;
+
+--6, how would customers like to move around?
+select transportation, Count (*) as best_mode
+from Trips
+group by transportation
+order by best_mode desc;
+
+--7, customers preferred mode of holidaying?
+select holiday_with, count (*) as preferred_holiday_mode
+from Trips
+group by holiday_with
+order by preferred_holiday_mode desc;
+
+--8, when will customers prefer to travel?
+select CASE time_of_travel
+    WHEN 1 THEN 'January'
+    WHEN 2 THEN 'February'
+    WHEN 3 THEN 'March'
+    WHEN 4 THEN 'April'
+    WHEN 5 THEN 'May'
+    WHEN 6 THEN 'June'
+    WHEN 7 THEN 'July'
+    WHEN 8 THEN 'August'
+    WHEN 9 THEN 'September'
+    WHEN 10 THEN 'October'
+    WHEN 11 THEN 'November'
+    WHEN 12 THEN 'December'
+  END AS month_name, count (*) as best_month
+from Trips
+group by time_of_travel
+order by best_month desc;
+
+
+
