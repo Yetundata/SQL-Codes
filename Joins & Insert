@@ -1,0 +1,60 @@
+--left join
+select *
+from inventory;
+
+select * 
+from film
+left join inventory
+on film.film_id = inventory.film_id;
+
+select * 
+from film
+left join inventory
+on film.film_id = inventory.film_id
+where inventory_id is null;
+
+
+--full join
+select *
+from address
+union
+select *
+from category;
+
+--creating table
+create table fraudulent(transaction_id Integer primary key,
+transaction_type varchar(20),
+amount Decimal (10,2),
+name_orig Varchar(30)
+);
+
+select *
+from fraudulent;
+
+--inserting values into table
+insert into fraudulent(transaction_id, transaction_type,amount,name_orig)
+values (14000, 'transfer', 5090.00, 'James Doe'),
+(5462, 'cash', 3457999.76, 'Mary Joseph'),
+(21541, 'credit', 6371.54, 'Magna CM');
+
+select transaction_id, name_orig
+from fraudulent
+where transaction_type = 'credit';
+
+create table copy_film (LIKE film);
+
+insert into copy_film
+select *
+from film;
+
+--Update columns on table
+UPDATE fraudulent
+SET amount = 5400, name_orig = 'Magna CM'
+WHERE transaction_id = 21541;
+
+--delete rows in a table
+delete from table_name
+where condition;
+
+delete from fraudulent
+where amount = 5090;
